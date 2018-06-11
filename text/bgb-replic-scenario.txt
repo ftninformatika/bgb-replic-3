@@ -1,0 +1,21 @@
+Instalacija replikacije za BGB
+------------------------------
+
+1) Serveru u centralnoj bazi dodelimo Eksport ulogu. Koristi se program replic-setup.jar.
+
+2) Na server u centralnoj biblioteci instaliramo program za eksport centralne baze:
+replic-export.jar i podesimo fajl export.ini.
+
+3) Za svaki server opstinske biblioteke:
+   a) za semu bisis dodelimo ulogu Import
+   b) za semu nbs dodelimo ulogu Sekundarni
+   c) instaliramo program za sinhronizaciju centralne i sekundarne baze:
+      replic-secondary.jar i podesimo fajl secondary.ini
+   d) instaliramo program za sinhronizaciju sekundarne i primarne baze:
+      replic-import.jar i podesimo fajl import.ini
+
+4) Pokrenemo prvi (full) eksport centralne baze
+
+5) Za svaki server opstinske biblioteke:
+   a) sinhronizujemo sekundarnu bazu sa cetralnom
+

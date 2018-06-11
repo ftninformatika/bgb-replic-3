@@ -1,0 +1,138 @@
+<project name="bgb-replic-31" default="build">
+
+  <path id="classpath">
+    <fileset dir="libs" includes="*.jar" />
+  </path>
+
+  <target name="clean">
+    <delete dir="bin" />
+    <delete dir="dist" />
+  </target>
+
+  <target name="compile">
+    <mkdir dir="bin" />
+    <javac srcdir="src" debug="true" destdir="bin" classpathref="classpath" source="1.4" target="1.4" />
+    <copy todir="bin">
+      <fileset dir="sql" includes="**/*.sql" />
+    </copy>
+  </target>
+
+  <target name="build.setup" depends="compile">
+    <mkdir dir="dist" />
+    <jar destfile="dist/replic-setup.jar">
+      <fileset dir="bin" includes="**/*" />
+      <zipgroupfileset dir="." includes="libs/*.jar" />
+      <manifest>
+        <attribute name="Main-Class" value="com.gint.app.bisis.replication.setup.SetupFrame" />
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="build.export" depends="compile">
+    <mkdir dir="dist" />
+    <jar destfile="dist/replic-export.jar">
+      <fileset dir="bin" includes="**/*" />
+      <zipgroupfileset dir="." includes="libs/*.jar" />
+      <manifest>
+        <attribute name="Main-Class" value="com.gint.app.bisis.replication.export.Main" />
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="build.secondary" depends="compile">
+    <mkdir dir="dist" />
+    <jar destfile="dist/replic-secondary.jar">
+      <fileset dir="bin" includes="**/*" />
+      <zipgroupfileset dir="." includes="libs/*.jar" />
+      <manifest>
+        <attribute name="Main-Class" value="com.gint.app.bisis.replication.secondary.Main" />
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="build.import" depends="compile">
+    <mkdir dir="dist" />
+    <jar destfile="dist/replic-import.jar">
+      <fileset dir="bin" includes="**/*" />
+      <zipgroupfileset dir="." includes="libs/*.jar" />
+      <manifest>
+        <attribute name="Main-Class" value="com.gint.app.bisis.replication.importt.Main" />
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="build.fixrn" depends="compile">
+    <mkdir dir="dist" />
+    <jar destfile="dist/replic-fixrn.jar">
+      <fileset dir="bin" includes="**/*" />
+      <zipgroupfileset dir="." includes="libs/*.jar" />
+      <manifest>
+        <attribute name="Main-Class" value="com.gint.app.bisis.replication.fixrn.Main" />
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="build.fixrn2" depends="compile">
+    <mkdir dir="dist" />
+    <jar destfile="dist/replic-fixrn2.jar">
+      <fileset dir="bin" includes="**/*" />
+      <zipgroupfileset dir="." includes="libs/*.jar" />
+      <manifest>
+        <attribute name="Main-Class" value="com.gint.app.bisis.replication.fixrn2.Main" />
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="build.fixdupes" depends="compile">
+    <mkdir dir="dist" />
+    <jar destfile="dist/replic-fixdupes.jar">
+      <fileset dir="bin" includes="**/*" />
+      <zipgroupfileset dir="." includes="libs/*.jar" />
+      <manifest>
+        <attribute name="Main-Class" value="com.gint.app.bisis.replication.fixdupes.Main" />
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="build.broken" depends="compile">
+    <mkdir dir="dist" />
+    <jar destfile="dist/exportbroken.jar">
+      <fileset dir="bin" includes="**/*" />
+      <zipgroupfileset dir="." includes="libs/*.jar" />
+      <manifest>
+        <attribute name="Main-Class" value="com.gint.app.bisis.replication.brokenrecords.Main" />
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="build.backup" depends="compile">
+    <mkdir dir="dist" />
+    <jar destfile="dist/replic-backup.jar">
+      <fileset dir="bin" includes="**/*" />
+      <zipgroupfileset dir="." includes="libs/*.jar" />
+      <manifest>
+        <attribute name="Main-Class" value="com.gint.app.bisis.replication.backup.Backup" />
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="build.restore" depends="compile">
+    <mkdir dir="dist" />
+    <jar destfile="dist/replic-restore.jar">
+      <fileset dir="bin" includes="**/*" />
+      <zipgroupfileset dir="." includes="libs/*.jar" />
+      <manifest>
+        <attribute name="Main-Class" value="com.gint.app.bisis.replication.backup.Restore" />
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="build" depends="clean, compile, build.setup, build.export, 
+  	  build.secondary, build.import, build.fixrn, build.fixrn2, build.fixdupes, 
+  	  build.broken, build.backup, build.restore">
+    <copy todir="dist">
+      <fileset dir="src" includes="*.ini" />
+    </copy>
+  </target>
+
+</project>
